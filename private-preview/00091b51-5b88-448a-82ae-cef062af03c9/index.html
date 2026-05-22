@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
   <title>看護教育におけるAI理解力と生成AI活用の要請</title>
   <style>
     html, body { margin: 0; min-height: 100%; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif; background: #f6f2ea; color: #14191d; }
@@ -25,7 +26,8 @@
       try {
         const response = await fetch(proxy, { cache: "no-store" });
         if (!response.ok) throw new Error("HTTP " + response.status);
-        const html = await response.text();
+        let html = await response.text();
+        html = html.replace(/<head([^>]*)>/i, '<head$1><meta name="robots" content="noindex,nofollow">');
         document.open();
         document.write(html);
         document.close();
